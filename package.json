@@ -13,7 +13,8 @@
     "day4": "npx tsc && node ./dist/day4.js",
     "day5": "npx tsc && node ./dist/day5.js",
     "day6": "npx tsc && node ./dist/day6.js",
-    "day7": "npx tsc && node ./dist/day7.js"
+    "day7": "npx tsc && node ./dist/day7.js",
+    "day7-2": "npx tsc && node ./dist/day7-2.js"
   },
   "author": "",
   "license": "ISC",

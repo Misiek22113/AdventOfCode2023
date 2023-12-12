@@ -22,7 +22,6 @@ const findLayout = ({ cards }) => {
             cards[index] += jokerNumber;
         }
     }
-    // console.log(max, index, cards);
     let filteredPairs = cards.filter((card) => card == 2);
     let rank = 0;
     if (max == 5) {
@@ -72,7 +71,6 @@ games.map((game) => {
             }
         }
     });
-    // console.log(data[0]);
     hands.push({
         hand: data[0],
         bid: parseInt(data[1]),

@@ -1,0 +1,21 @@
+{
+  "name": "advent1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "day1": "npx tsc && node ./dist/day1.js",
+    "day1-2": "npx tsc && node ./dist/day1-2.js",
+    "day2-1": "npx tsc && node ./dist/day2-1.js",
+    "day3": "npx tsc && node ./dist/day3.js",
+    "day3-2": "npx tsc && node ./dist/day3-2.js",
+    "day4": "npx tsc && node ./dist/day4.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.3",
+    "typescript": "^5.3.2"
+  }
+}

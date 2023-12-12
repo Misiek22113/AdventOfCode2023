@@ -1,0 +1,27 @@
+# Pliki tymczasowe
+*.pyc
+__pycache__/
+
+# Środowisko wirtualne
+venv/
+.env/
+
+# Pliki zależności
+/libraries/
+
+# Pliki konfiguracyjne
+config.ini
+
+# Pliki tymczasowe
+*.pyc
+__pycache__/
+
+# Środowisko wirtualne
+venv/
+.env/
+
+# Pliki zależności
+/libraries/
+
+# Pliki konfiguracyjne
+config.ini

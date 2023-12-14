@@ -17,7 +17,6 @@ const lines = data.slice(2, data.length);
 let network: network[] = [];
 
 const regex = /[=\(\),]/g;
-const nodeRegex = /[A-Z]/;
 let startIndex = 0;
 
 lines.map((line, index) => {

@@ -10,7 +10,6 @@ const sequence = data[0];
 const lines = data.slice(2, data.length);
 let network = [];
 const regex = /[=\(\),]/g;
-const nodeRegex = /[A-Z]/;
 let startIndex = 0;
 lines.map((line, index) => {
     let nodes = line.replace(regex, "").split(" ");

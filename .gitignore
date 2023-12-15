@@ -28,3 +28,6 @@ config.ini
 
 # Pliki input
 /inputs/
+
+#Folder dla plików js
+/dist/*

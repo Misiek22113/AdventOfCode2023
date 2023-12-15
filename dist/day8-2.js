@@ -63,6 +63,9 @@ while (startNodes.filter((node) => {
     startNodes = tempNodes;
     steps++;
 }
+let stepsResult = startNodes.map((node) => {
+    return node.steps;
+});
 const findNWD = ({ a, b }) => {
     let i = 0;
     while (b != 0) {
@@ -72,19 +75,7 @@ const findNWD = ({ a, b }) => {
     }
     return a;
 };
-let stepsResult = startNodes.map((node) => {
-    return node.steps;
-});
 const calculateNWW = (stepsResult) => {
-    const findNWD = ({ a, b }) => {
-        let i = 0;
-        while (b != 0) {
-            i = b;
-            b = a % b;
-            a = i;
-        }
-        return a;
-    };
     const findNWW = ({ a, b }) => {
         return (a * b) / findNWD({ a, b });
     };
@@ -96,4 +87,3 @@ const calculateNWW = (stepsResult) => {
 };
 const nwwResult = calculateNWW(stepsResult);
 console.log(nwwResult);
-// console.log(startNodes);

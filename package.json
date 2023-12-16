@@ -12,6 +12,7 @@
     "day3-2": "npx tsc && node ./dist/src/day3-2.js",
     "day4": "npx tsc && node ./dist/src/day4.js",
     "day5": "npx tsc && node ./dist/src/day5.js",
+    "day5-2": "npx tsc && node ./dist/src/day5-2.js",
     "day6": "npx tsc && node ./dist/src/day6.js",
     "day7": "npx tsc && node ./dist/src/day7.js",
     "day7-2": "npx tsc && node ./dist/src/day7-2.js",

@@ -1,100 +1,83 @@
 import fs from "fs";
 
-type categoryMap = {
+type CategoryMap = {
   destination: number;
   source: number;
   length: number;
 };
 
-type pair = {
+type Pair = {
   key: number;
   value: number;
 };
 
-interface category {
+type SeedData = {
+  actualValue: number;
+  nextValue: number;
+};
+
+interface Category {
   name: string;
-  maps: categoryMap[];
+  maps: CategoryMap[];
 }
 
-interface categoryResult extends category {
-  resultTab: pair[];
+interface CategoryResult extends Category {
+  resultTab: Pair[];
 }
 
-const data = fs.readFileSync("./inputs/test.txt", "utf-8");
+const data = fs.readFileSync("./inputs/data_day5.txt", "utf-8");
+const splittedData = data.split("\n");
+const seedsLine = splittedData[0];
 
-let splittedData = data.split("\n");
-
-let seedsLine = splittedData[0];
-
-let seedsData: number[] = seedsLine
+const seedsData: SeedData[] = seedsLine
   .split(" ")
   .slice(1)
-  .map((number) => parseInt(number));
+  .map((number) => ({
+    actualValue: parseInt(number),
+    nextValue: parseInt(number),
+  }));
 
-let categoriesData = splittedData
-  .slice(1, data.length)
-  .map((line) => line.trim());
+const categoriesData = splittedData.slice(1).map((line) => line.trim());
 
-let categories: category[] = [];
+const breakIndexes: number[] = categoriesData
+  .map((line, index) => (line === "" ? index : -1))
+  .filter((index) => index !== -1);
 
-let breakIndex: number[] = [];
-
-categoriesData.map((line, index) => {
-  line === "" ? breakIndex.push(index) : "";
+const categories: Category[] = breakIndexes.map((breakIndex, idx) => {
+  const tmpMaps: CategoryMap[] = [];
+  const maps = categoriesData.slice(breakIndex + 2, breakIndexes[idx + 1]);
+  maps.forEach((singleMap) => {
+    const [destination, source, length] = singleMap
+      .split(" ")
+      .map((value) => parseInt(value));
+    tmpMaps.push({ destination, source, length });
+  });
+  return { name: categoriesData[breakIndex + 1], maps: tmpMaps };
 });
 
-for (let i = 0; i < breakIndex.length; i++) {
-  let tmpMaps: categoryMap[] = [];
-  let maps = categoriesData.slice(breakIndex[i] + 2, breakIndex[i + 1]);
-  maps.map((singleMap) => {
-    let rawValues = singleMap.split(" ").map((value) => parseInt(value));
-    tmpMaps.push({
-      destination: rawValues[0],
-      source: rawValues[1],
-      length: rawValues[2],
+categories.forEach((category) => {
+  category.maps.forEach((map) => {
+    const offset = map.destination - map.source;
+    seedsData.forEach((seed) => {
+      if (
+        seed.actualValue >= map.source &&
+        seed.actualValue < map.source + map.length
+      ) {
+        seed.nextValue = seed.actualValue + offset;
+      }
     });
   });
-  categories.push({ name: categoriesData[breakIndex[i] + 1], maps: tmpMaps });
+
+  seedsData.forEach((seed) => {
+    seed.actualValue = seed.nextValue;
+  });
+});
+
+let minimum = seedsData[0].actualValue;
+for (let i = 1; i < seedsData.length; i++) {
+  if (seedsData[i].actualValue < minimum) {
+    minimum = seedsData[i].actualValue;
+  }
 }
 
-let categoriesResults: categoryResult[] = [];
-
-categories.map((category) => {
-  let tmp: pair[] = [];
-  category.maps.map((map) => {
-    for (let i = 0; i < map.length; i++) {
-      let index = tmp.findIndex((mapPair) => mapPair.key === map.source + i);
-      if (index !== -1) {
-        tmp[index].value = map.destination + i;
-      }
-      tmp.push({ key: map.source + i, value: map.destination + i });
-    }
-  });
-  categoriesResults.push({
-    ...category,
-    resultTab: tmp,
-  });
-});
-
-let result = 9999;
-
-console.log(categoriesResults);
-
-seedsData.map((seed) => {
-  let actualSeed = seed;
-  categoriesResults.map((category) => {
-    let res = category.resultTab.findIndex((pair) => pair.key === actualSeed);
-    if (res !== -1) {
-      actualSeed = category.resultTab[res].value;
-    }
-  });
-  if (actualSeed < result) {
-    result = actualSeed;
-  }
-});
-
-// categoriesResults.map((category) => {
-//   console.log(category.name, category.resultTab);
-// });
-
-console.log(result);
+console.log(minimum);
